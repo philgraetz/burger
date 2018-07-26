@@ -1,0 +1,103 @@
+
+
+<div class="container bg-light">
+
+    {{!-- Title --}}
+    <div class="row pt-3">
+        <div class="col-md-12">
+            <h1 class="text-center">Eat Da Burger!</h1>
+        </div>
+    </div>
+
+    {{!-- Image --}}
+    <div class="row pt-3">
+        <div class="col-md-12">
+            <div class="burger-image-div">
+                <img src="./assets/burger.jpg" alt="Burger" class="burger-image"
+                    {{!-- style="max-width:200px" --}}
+                    >
+            </div>
+        </div>
+    </div>
+
+    {{!-- New Burger Form --}}
+    <div class="row pt-3">
+        <div class="col-md-12">
+            <form class="create-form">
+                <div class="form-group">
+                    <label for="new-burger-input">Order your favorite burger</label>
+                    <input type="text" id="new-burger-input" name="new burger">
+                    <button type="submit" id="new-burger-button">Order</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        {{!-- Burgers yet to be eaten --}}
+        <div class="col-md-6">
+            <h3>To Be Eaten</h3>
+            <ul>
+                {{#each burger}}
+                    {{#unless devoured}}
+                        <li>
+                            <span>{{burger_name}}</span>
+                            <button class="btn btn-sm eat-button"
+                                    id=burgerID_{{id}}>Eat It!</button>
+                        </li>
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+
+        {{!-- Burgers Eaten --}}
+        <div class="col-md-6">
+            <h3>Eaten</h3>
+            <ul>
+                {{#each burger}}
+                    {{#if devoured}}
+                        <li>{{burger_name}}</li>
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#new-burger-button").on("click", function(event) {
+            event.preventDefault();
+            let burgerName = $("#new-burger-input").val();
+            $.post("/api/burger", {name: burgerName})
+            .then(function() {
+                // I tried express res.redirect('/index');
+                // But that doesn't work for some reason.
+                // This seams to work ok.
+                window.location = "/index";
+            });
+        });
+
+        $(document).on("click", ".eat-button", function(event) {
+            event.preventDefault();
+            let idStr = $(this).attr("id");
+            let burgerId = parseInt(idStr.slice(9));
+            let data = {id: burgerId};
+            $.ajax({
+                type       : "PUT",
+                url        : "/api/burger",
+                contentType: "application/json",
+                data       : JSON.stringify(data),
+            })
+            .then(function() {
+                // I tried express res.redirect('/index');
+                // But that doesn't work for some reason.
+                // This seams to work ok.
+                window.location = "/index";
+            });
+        });
+    });
+</script>
