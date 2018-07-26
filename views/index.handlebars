@@ -3,16 +3,16 @@
 <div class="container bg-light">
 
     {{!-- Title --}}
-    <div class="row pt-3">
+    <div class="row bg-primary mt-3">
         <div class="col-md-12">
-            <h1 class="text-center">Eat Da Burger!</h1>
+            <h1 class="text-center text-light">Eat Da Burger!</h1>
         </div>
     </div>
 
     {{!-- Image --}}
-    <div class="row pt-3">
+    <div class="row py-2 bg-secondary">
         <div class="col-md-12">
-            <div class="burger-image-div">
+            <div class="burger-image-div d-flex justify-content-center">
                 <img src="./assets/burger.jpg" alt="Burger" class="burger-image"
                     {{!-- style="max-width:200px" --}}
                     >
@@ -21,13 +21,13 @@
     </div>
 
     {{!-- New Burger Form --}}
-    <div class="row pt-3">
+    <div class="row pt-3 bg-hamb-green">
         <div class="col-md-12">
             <form class="create-form">
                 <div class="form-group">
-                    <label for="new-burger-input">Order your favorite burger</label>
-                    <input type="text" id="new-burger-input" name="new burger">
-                    <button type="submit" id="new-burger-button">Order</button>
+                    <label class="text-light" for="new-burger-input">Order your favorite burger</label>
+                    <input type="text" id="new-burger-input" name="new burger" class="bg-light">
+                    <button class="btn btn-sm btn-primary" type="submit" id="new-burger-button">Order</button>
                 </div>
             </form>            
         </div>
@@ -37,31 +37,29 @@
     <div class="row">
 
         {{!-- Burgers yet to be eaten --}}
-        <div class="col-md-6">
+        <div class="col-md-7">
             <h3>To Be Eaten</h3>
-            <ul>
                 {{#each burger}}
                     {{#unless devoured}}
-                        <li>
-                            <span>{{burger_name}}</span>
-                            <button class="btn btn-sm eat-button"
+                        <div class="p-1">
+                            <button class="btn btn-sm btn-primary eat-button d-inline-flex"
                                     id=burgerID_{{id}}>Eat It!</button>
-                        </li>
+                            <div class="d-inline-flex w-75">{{burger_name}}</div>
+                        </div>
                     {{/unless}}
                 {{/each}}
-            </ul>
         </div>
 
         {{!-- Burgers Eaten --}}
-        <div class="col-md-6">
+        <div class="col-md-5">
             <h3>Eaten</h3>
-            <ul>
                 {{#each burger}}
                     {{#if devoured}}
-                        <li>{{burger_name}}</li>
+                        <div class="p-1">
+                            {{burger_name}}
+                        </div>
                     {{/if}}
                 {{/each}}
-            </ul>
         </div>
 
     </div>
