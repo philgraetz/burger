@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+#if (($# < 2)); then
+#  echo ""
+#  echo "USAGE run-it <INPUT_FILE> <OUTPUT_FILE>"
+#  echo ""
+#  exit
+#fi
+#IF=$1
+#OF=$2
+IF=./scss/burger.scss
+OF=./public/assets/burger-bs-mini.css
+echo "INPUT_FILE : ${IF}"
+echo "OUTPUT_FILE: ${OF}"
+CMD="sass --load-path .  --style compressed ${IF} ${OF}"
+echo $CMD
+$CMD

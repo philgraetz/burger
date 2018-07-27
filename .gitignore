@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# Other
+.sass-cache
+public/assets/burger-bs-mini.css.map
